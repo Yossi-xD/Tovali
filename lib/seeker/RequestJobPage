@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class RequestJobPage extends StatefulWidget {
+  @override
+  _RequestJobPageState createState() => _RequestJobPageState();
+}
+
+class _RequestJobPageState extends State<RequestJobPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _jobTitleController = TextEditingController();
+  final _jobDescriptionController = TextEditingController();
+  final _providerIdController = TextEditingController();
+
+  bool _isSubmitting = false;
+
+  Future<void> submitJobRequest() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isSubmitting = true);
+
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) throw Exception("User not logged in");
+
+      await FirebaseFirestore.instance.collection('jobRequests').add({
+        'seekerId': user.uid,
+        'providerId': _providerIdController.text.trim(),
+        'jobTitle': _jobTitleController.text.trim(),
+        'jobDescription': _jobDescriptionController.text.trim(),
+        'dateTime': Timestamp.now(),
+        'status': 'pending',
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Job request submitted successfully!")),
+      );
+
+      _jobTitleController.clear();
+      _jobDescriptionController.clear();
+      _providerIdController.clear();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: ${e.toString()}")),
+      );
+    } finally {
+      setState(() => _isSubmitting = false);
+    }
+  }
+
+  @override
+  void dispose() {
+    _jobTitleController.dispose();
+    _jobDescriptionController.dispose();
+    _providerIdController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Submit Job Request")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _jobTitleController,
+                decoration: InputDecoration(labelText: "Job Title"),
+                validator: (value) => value!.isEmpty ? 'Enter job title' : null,
+              ),
+              TextFormField(
+                controller: _jobDescriptionController,
+                decoration: InputDecoration(labelText: "Job Description"),
+                validator: (value) => value!.isEmpty ? 'Enter description' : null,
+              ),
+              TextFormField(
+                controller: _providerIdController,
+                decoration: InputDecoration(labelText: "Provider ID"),
+                validator: (value) => value!.isEmpty ? 'Enter provider ID' : null,
+              ),
+              SizedBox(height: 20),
+              _isSubmitting
+                  ? CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: submitJobRequest,
+                      child: Text("Submit Request"),
+                    ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

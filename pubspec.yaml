@@ -1,34 +1,62 @@
+# name: tovali_2
+# description: "A new Flutter project."
+# publish_to: 'none'
+# version: 0.1.0
+
+# environment:
+#   sdk: ^3.7.0
+
+
+  
+#   dependencies:
+#   flutter:
+#     sdk: flutter
+#   flutter_localizations:
+#     sdk: flutter
+#   intl: ^0.18.1  # For advanced localization features
+
+# flutter:
+#   generate: true  # Enables code generation for localization
+#   sdk: flutter
+#   image_picker: ^0.8.5+3
+#   uses-material-design: true
+  
+# dev_dependencies:
+#   flutter_test:
+#     sdk: flutter
+#   flutter_lints: ^5.0.0
+
+
+# assets:
+#   - assets/TovaliLogo.png
+
 name: tovali_2
-description: "A new Flutter project."
-publish_to: 'none'
-version: 0.1.0
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this if you plan to publish
+
+version: 1.0.0+1
 
 environment:
-  sdk: ^3.7.0
+  sdk: ">=3.0.0 <4.0.0"
 
-
-  
-  dependencies:
+dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  intl: ^0.18.1  # For advanced localization features
+  image_picker: ^1.0.0 # <-- Move this here
+  firebase_core: ^3.13.0
+  cloud_firestore: ^5.6.7
+  firebase_auth: ^5.5.3
+  
+  
 
-flutter:
-  generate: true  # Enables code generation for localization
-  
-flutter:
-    sdk: flutter
-    image_picker: ^0.8.5+3
-  
+  cupertino_icons: ^1.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
-
-assets:
-  - assets/TovaliLogo.png
+  assets:
+    - assets/

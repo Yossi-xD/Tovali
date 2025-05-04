@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "319086916471",
+    "project_id": "tovali-2025",
+    "storage_bucket": "tovali-2025.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319086916471:android:2f9dc67ff17a5d1ae8a772",
+        "android_client_info": {
+          "package_name": "com.example.tovali"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgGvZzKMsbVd-PkVo_pHL3aWBdN_KdLSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

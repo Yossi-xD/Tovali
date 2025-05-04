@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart'; // Adjust the import path according to your file structure
+import 'main.dart'; // Adjust the import path according to your file structure
 
 class SuccessApplyScreen extends StatelessWidget {
   const SuccessApplyScreen({super.key});
